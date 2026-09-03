@@ -1638,22 +1638,19 @@
     if(!confirm('수업 전체를 초기화할까요? 참가자 이름·접속 현황·빙고 이력·1·2·3등·말 뽑기 기록이 모두 삭제됩니다. 학생은 별명을 다시 입력해야 합니다.')) return;
 
     var resetValue=Date.now();
+    // 참가자 목록까지 한 번의 원자적 업데이트로 삭제한다.
+    // 개별 참가자를 순차 삭제하면 여러 학생의 presence 갱신과 경합해
+    // 이전 참가자가 대시보드에 남을 수 있으므로 players 자체를 null 처리한다.
     var updates={
+      players:null,
       finishers:null,
       events:null,
       lastEvent:null,
       draws:null,
       currentDraw:null,
-      roundReset:resetValue,
       classReset:resetValue
     };
     roomRef.update(updates).then(function(){
-      return roomRef.child('players').once('value');
-    }).then(function(snap){
-      var removals=[];
-      snap.forEach(function(c){ removals.push(c.ref.remove()); });
-      return Promise.all(removals);
-    }).then(function(){
       S.players=[]; S.finishers=[]; S.drawn=[];
       renderTeacherStats([]);
       renderTeacherPlayers([]);
