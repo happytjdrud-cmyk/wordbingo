@@ -1432,7 +1432,13 @@
       }
     });
     roomRef.child('roundReset').on('value', function(snap){
-      var ts=snap.val();
+      var ts=Number(snap.val()||0);
+      // 음수 값은 '수업 전체 초기화' 신호입니다.
+      // 기존 학생의 presence/heartbeat를 먼저 멈춘 뒤 참가자 기록을 지웁니다.
+      if(ts < 0){
+        if(playerRef) leaveStudentAfterClassReset(Math.abs(ts));
+        return;
+      }
       if(!ts || Date.now()-ts>8000) return;
       S.marks=new Array(S.cells.length).fill(false);
       S.lines=[]; S.reportedLines=0; S.finished=false; S.drawn=[]; S.awardShown=0;
@@ -1647,25 +1653,33 @@
     var resetValue=Date.now();
     $('roomState').textContent='수업 전체 초기화 중…';
 
-    // 먼저 새 수업 세션 번호를 기록한다.
-    // 기존 학생은 이전 session 값을 갖고 있으므로 이 시점부터 heartbeat 재등록이 차단된다.
-    roomRef.child('classReset').set(resetValue).then(function(){
-      return new Promise(function(resolve){ setTimeout(resolve, 350); });
+    // 별도 classReset 쓰기를 하지 않습니다.
+    // 기존에도 허용되어 있던 roundReset 경로에 음수 신호를 보내 학생의 heartbeat를 먼저 멈춥니다.
+    roomRef.child('roundReset').set(-resetValue).then(function(){
+      return new Promise(function(resolve){ setTimeout(resolve, 650); });
     }).then(function(){
-      // room 루트의 다중 update를 사용하지 않고, 권한이 명시된 각 경로를 따로 비운다.
-      return Promise.all([
-        roomRef.child('players').remove(),
-        roomRef.child('finishers').remove(),
-        roomRef.child('events').remove(),
-        roomRef.child('lastEvent').remove(),
-        roomRef.child('draws').remove(),
-        roomRef.child('currentDraw').remove()
-      ]);
+      // players 부모 전체 삭제는 규칙 버전에 따라 거부될 수 있어 각 참가자 항목을 개별 삭제합니다.
+      return roomRef.child('players').once('value');
+    }).then(function(snap){
+      var jobs=[];
+      snap.forEach(function(c){ jobs.push(c.ref.remove()); });
+      jobs.push(roomRef.child('finishers').remove());
+      jobs.push(roomRef.child('events').remove());
+      jobs.push(roomRef.child('lastEvent').remove());
+      jobs.push(roomRef.child('draws').remove());
+      jobs.push(roomRef.child('currentDraw').remove());
+      return Promise.all(jobs);
     }).then(function(){
-      return roomRef.child('roundReset').set(resetValue);
+      // 늦게 도착한 heartbeat가 있었는지 한 번 더 확인하고 개별 삭제합니다.
+      return new Promise(function(resolve){ setTimeout(resolve, 450); });
+    }).then(function(){
+      return roomRef.child('players').once('value');
+    }).then(function(snap){
+      var cleanup=[];
+      snap.forEach(function(c){ cleanup.push(c.ref.remove()); });
+      return Promise.all(cleanup);
     }).then(function(){
       S.players=[]; S.finishers=[]; S.drawn=[];
-      S.joinedClassReset=resetValue;
       renderTeacherStats([]);
       renderTeacherPlayers([]);
       renderTeacherDrawHistory();
