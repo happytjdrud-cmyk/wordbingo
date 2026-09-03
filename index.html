@@ -318,6 +318,71 @@
   body[data-layout="portrait"] .actions .btn,
   body[data-layout="embed"] .actions .btn{flex:1 1 140px}
 
+  @media (min-width:1025px) and (max-height:980px){
+    body[data-layout="landscape"]{
+      --gap:12px;
+      --page-pad:8px;
+      --page-pad-x:12px;
+    }
+    body[data-layout="landscape"] .topbar{padding:8px 12px;border-radius:16px}
+    body[data-layout="landscape"] .brand-logo{max-height:30px}
+    body[data-layout="landscape"] .icon-btn{width:46px;height:46px;font-size:1.08rem}
+    body[data-layout="landscape"] .steps{margin:8px 0 10px}
+    body[data-layout="landscape"] .step{width:44px;height:44px;font-size:1.1rem}
+
+    body[data-layout="landscape"] #screenPlay .sheet{padding:14px 14px 12px}
+    body[data-layout="landscape"] #screenPlay .title{margin:0 0 4px;gap:10px}
+    body[data-layout="landscape"] #screenPlay .title .title-mascot{width:clamp(48px,4vw,62px)}
+    body[data-layout="landscape"] #screenPlay .title .ol{font-size:clamp(1.7rem,2vw,2.2rem)}
+    body[data-layout="landscape"] #screenPlay .subtitle{font-size:.92rem;line-height:1.4;margin:2px 0 0}
+    body[data-layout="landscape"] #screenPlay .teacher-call{margin:10px 0 12px;padding:10px 12px;border-radius:16px}
+    body[data-layout="landscape"] #screenPlay .teacher-call .cap{font-size:.8rem;margin-bottom:2px}
+    body[data-layout="landscape"] #screenPlay .teacher-call .word{font-size:clamp(1.15rem,2.2vw,1.85rem);line-height:1.18}
+    body[data-layout="landscape"] #screenPlay .teacher-call .meta{font-size:.76rem;margin-top:2px}
+
+    body[data-layout="landscape"] #screenPlay .board{gap:6px;width:min(100%,var(--play-board-max,560px));margin:0 auto}
+    body[data-layout="landscape"] #screenPlay .board.n3{--play-board-max:500px}
+    body[data-layout="landscape"] #screenPlay .board.n4{--play-board-max:560px}
+    body[data-layout="landscape"] #screenPlay .board.n5{--play-board-max:620px}
+    body[data-layout="landscape"] #screenPlay .cell{border-radius:12px;padding:4px 3px}
+    body[data-layout="landscape"] #screenPlay .board.n3 .cell .txt{font-size:clamp(.88rem,1.45vw,1.08rem)}
+    body[data-layout="landscape"] #screenPlay .board.n4 .cell .txt{font-size:clamp(.7rem,1.1vw,.9rem)}
+    body[data-layout="landscape"] #screenPlay .board.n5 .cell .txt{font-size:clamp(.56rem,.86vw,.74rem)}
+    body[data-layout="landscape"] #screenPlay .banner{margin-top:10px;padding:10px 12px;font-size:.92rem}
+    body[data-layout="landscape"] #screenPlay .banner svg{width:18px;height:18px}
+
+    body[data-layout="landscape"] #screenPlay .boxes{margin-top:12px;gap:8px}
+    body[data-layout="landscape"] #screenPlay .box{padding:10px 6px;border-radius:16px;border-top-width:4px}
+    body[data-layout="landscape"] #screenPlay .box .ico{font-size:1.18rem}
+    body[data-layout="landscape"] #screenPlay .box .cap{font-size:.82rem;margin:2px 0 1px}
+    body[data-layout="landscape"] #screenPlay .box .num{font-size:1.45rem}
+
+    body[data-layout="landscape"] #screenPlay .status{margin-top:10px;gap:8px}
+    body[data-layout="landscape"] #screenPlay .count{font-size:1.08rem}
+    body[data-layout="landscape"] #screenPlay .count em{font-size:1.45rem}
+    body[data-layout="landscape"] #screenPlay .pips{gap:7px}
+    body[data-layout="landscape"] #screenPlay .pip{width:22px;height:22px;border-width:2px}
+    body[data-layout="landscape"] #screenPlay .actions{margin-top:12px;gap:8px}
+    body[data-layout="landscape"] #screenPlay .actions .btn{min-height:48px;padding:12px 14px;font-size:1rem;flex:1 1 140px}
+
+    body[data-layout="landscape"] #screenPlay .side-col{gap:12px;top:calc(var(--page-pad,8px) + 88px)}
+    body[data-layout="landscape"] #screenPlay .live-panel{padding:12px 14px;border-radius:18px}
+    body[data-layout="landscape"] #screenPlay .live-title{font-size:1.08rem;margin-bottom:6px}
+    body[data-layout="landscape"] #screenPlay .live-item{padding:8px 10px;font-size:.92rem}
+  }
+
+  @media (min-width:1025px) and (max-height:860px){
+    body[data-layout="landscape"] #screenPlay .board.n3{--play-board-max:440px}
+    body[data-layout="landscape"] #screenPlay .board.n4{--play-board-max:500px}
+    body[data-layout="landscape"] #screenPlay .board.n5{--play-board-max:560px}
+    body[data-layout="landscape"] #screenPlay .sheet{padding:12px 12px 10px}
+    body[data-layout="landscape"] #screenPlay .teacher-call{margin:8px 0 10px;padding:8px 10px}
+    body[data-layout="landscape"] #screenPlay .banner{margin-top:8px;padding:8px 10px;font-size:.86rem}
+    body[data-layout="landscape"] #screenPlay .boxes{margin-top:10px}
+    body[data-layout="landscape"] #screenPlay .status{margin-top:8px}
+    body[data-layout="landscape"] #screenPlay .actions{margin-top:10px}
+  }
+
   @media print{
     body{background:#fff}
     .topbar,.steps,.opts,.actions,.bank,.boxes,.status,.toast,#confetti,.overlay{display:none !important}
