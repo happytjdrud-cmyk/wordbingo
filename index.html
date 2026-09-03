@@ -1304,7 +1304,8 @@
           lastSeen:firebase.database.ServerValue.TIMESTAMP,
           updatedAt:firebase.database.ServerValue.TIMESTAMP,
           lines:S.lines.length||0,
-          marks:S.marks.filter(Boolean).length||0
+          marks:S.marks.filter(Boolean).length||0,
+          session:S.joinedClassReset||0
         }).then(function(){
           bindPresence();
           $('roomState').textContent = who + ' 님이 실시간 교실에 참여했어요.';
@@ -1322,7 +1323,8 @@
         marks:S.marks.filter(Boolean).length||0,
         online:true,
         lastSeen:firebase.database.ServerValue.TIMESTAMP,
-        updatedAt:firebase.database.ServerValue.TIMESTAMP
+        updatedAt:firebase.database.ServerValue.TIMESTAMP,
+        session:S.joinedClassReset||0
       }).then(function(){
         bindPresence();
         $('roomState').textContent = who + ' 님이 실시간 교실에 참여했어요.';
@@ -1645,26 +1647,25 @@
     var resetValue=Date.now();
     $('roomState').textContent='수업 전체 초기화 중…';
 
-    // 한 번의 원자적 업데이트로 수업 데이터 전체를 비운다.
-    // classReset 변경을 받은 현재 학생 화면은 입장 화면으로 돌아간다.
-    var updates={
-      players:null,
-      finishers:null,
-      events:null,
-      lastEvent:null,
-      draws:null,
-      currentDraw:null,
-      roundReset:resetValue,
-      classReset:resetValue
-    };
-
-    roomRef.update(updates).then(function(){
-      // 혹시 직전 heartbeat가 겹쳤을 경우를 대비해 짧게 기다린 뒤 참가자 경로를 한 번 더 비운다.
-      return new Promise(function(resolve){ setTimeout(resolve, 700); });
+    // 먼저 새 수업 세션 번호를 기록한다.
+    // 기존 학생은 이전 session 값을 갖고 있으므로 이 시점부터 heartbeat 재등록이 차단된다.
+    roomRef.child('classReset').set(resetValue).then(function(){
+      return new Promise(function(resolve){ setTimeout(resolve, 350); });
     }).then(function(){
-      return roomRef.child('players').remove();
+      // room 루트의 다중 update를 사용하지 않고, 권한이 명시된 각 경로를 따로 비운다.
+      return Promise.all([
+        roomRef.child('players').remove(),
+        roomRef.child('finishers').remove(),
+        roomRef.child('events').remove(),
+        roomRef.child('lastEvent').remove(),
+        roomRef.child('draws').remove(),
+        roomRef.child('currentDraw').remove()
+      ]);
+    }).then(function(){
+      return roomRef.child('roundReset').set(resetValue);
     }).then(function(){
       S.players=[]; S.finishers=[]; S.drawn=[];
+      S.joinedClassReset=resetValue;
       renderTeacherStats([]);
       renderTeacherPlayers([]);
       renderTeacherDrawHistory();
@@ -1675,8 +1676,9 @@
       toast('수업 전체 초기화 완료 · 참가자 0명');
     }).catch(function(e){
       console.error('수업 전체 초기화 실패',e);
-      $('roomState').textContent='수업 전체 초기화 실패 · Firebase 규칙을 확인해 주세요.';
-      toast('전체 초기화에 실패했어요. Firebase 규칙을 확인해 주세요.');
+      var code=(e && e.code) ? String(e.code) : 'unknown';
+      $('roomState').textContent='수업 전체 초기화 실패 · '+code;
+      toast('전체 초기화 실패 · '+code);
     });
   }
   $('btnTeacherDraw').addEventListener('click', teacherDrawShared);
