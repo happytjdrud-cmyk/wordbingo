@@ -79,7 +79,7 @@
   .brand{display:flex;align-items:center;gap:9px;font-size:.98rem;color:#3F8571}
   .brand svg{display:none}
   .brand b{display:none}
-  .brand-logo{display:block;width:clamp(210px,24vw,300px);height:auto;max-height:72px;object-fit:contain}
+  .brand-logo{display:block;width:clamp(145px,9.5vw,165px);height:auto;max-height:36px;object-fit:contain;image-rendering:auto}
   .tools{display:flex;gap:8px}
   .icon-btn{
     width:52px;height:52px;border-radius:50%;background:var(--paper);border:0;
@@ -261,6 +261,23 @@
   .celeb-title{font-size:1.92rem;margin:8px 0;color:var(--ink);line-height:1.3}
   .card-inner p{font-size:1.05rem;line-height:1.85;color:var(--body);margin:0}
   .modal .btn{margin-top:18px;flex:none;width:100%}
+  .rank-modal{max-width:520px}
+  .award-card{
+    background:linear-gradient(160deg,#FFF8E9 0%,#F8FBFF 52%,#FDEDF8 100%);
+    border:3px solid var(--gold);border-radius:24px;padding:26px 20px 22px;
+    position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);
+  }
+  .award-card:before,.award-card:after{content:"";position:absolute;border-radius:999px;opacity:.28;pointer-events:none}
+  .award-card:before{width:180px;height:180px;background:#FFE8A3;top:-70px;right:-40px}
+  .award-card:after{width:140px;height:140px;background:#DDEBFF;bottom:-45px;left:-35px}
+  .award-crown{font-size:3.1rem;line-height:1;margin-bottom:8px;position:relative;z-index:1;filter:drop-shadow(0 4px 0 rgba(74,69,96,.12))}
+  .award-eyebrow{font-size:.98rem;color:#9B7311;letter-spacing:.12em;font-weight:800;position:relative;z-index:1}
+  .award-place{font-family:var(--font-yoon);font-size:clamp(2.1rem,9vw,3.2rem);color:var(--ink);margin:8px 0 6px;position:relative;z-index:1}
+  .award-name{font-size:clamp(1.18rem,5vw,1.7rem);font-weight:800;color:var(--body);position:relative;z-index:1}
+  .award-desc{font-size:1.04rem;line-height:1.7;color:var(--body);margin:14px 0 12px;position:relative;z-index:1}
+  .award-meta{display:inline-block;font-size:.95rem;color:#6E6A82;background:rgba(255,255,255,.82);padding:8px 12px;border-radius:999px;position:relative;z-index:1}
+  .rank-modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .rank-modal-actions .btn{margin-top:0;flex:1 1 180px}
 
   .toast{
     position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:45;
@@ -336,7 +353,7 @@
   .teacher-hub.hidden{display:none !important}
   .teacher-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
   .teacher-top .live-title{margin-bottom:0}
-  .teacher-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:14px;align-items:start}
+  .teacher-grid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(420px,1.28fr);gap:12px;align-items:stretch}
   .teacher-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
   .teacher-card{background:linear-gradient(180deg,#FFFFFF,#F9F7FF);border-radius:18px;padding:14px;border:1px solid #EEE6FF}
   .teacher-card h3{margin:0 0 8px;font-family:var(--font-yoon);font-size:1.04rem;font-weight:700}
@@ -346,14 +363,51 @@
   .teacher-table th,.teacher-table td{padding:9px 10px;border-bottom:1px solid #EDF1F5;text-align:left;font-size:.92rem}
   .teacher-table th{background:#F7FAFD;color:var(--body);position:sticky;top:0}
   .teacher-table td.numcell{text-align:center;font-family:var(--font-yoon)}
-  .teacher-draw-word{display:inline-block;background:#fff;border-radius:16px;padding:14px 18px;font-size:clamp(1.3rem,4vw,2.2rem);box-shadow:0 5px 0 rgba(74,69,96,.12);max-width:100%;word-break:keep-all}
-  .teacher-draw-box{background:linear-gradient(#C9E7F8,#96CBEF);border-radius:18px;padding:16px;text-align:center;margin-bottom:10px}
+  .teacher-draw-word{display:inline-block;background:#fff;border-radius:20px;padding:20px 28px;font-size:clamp(2.2rem,5vw,4.4rem);font-weight:800;box-shadow:0 6px 0 rgba(74,69,96,.12);max-width:96%;word-break:keep-all;line-height:1.15}
+  .teacher-draw-box{background:linear-gradient(#C9E7F8,#96CBEF);border-radius:20px;padding:18px;text-align:center;margin-bottom:10px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center}
   .teacher-draw-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
   .teacher-draw-actions .btn{flex:1 1 140px;min-height:52px}
+  .teacher-direct{margin-top:10px;padding:10px;border-radius:16px;background:#FFFDF7;border:2px dashed #F3D78B}
+  .teacher-direct-label{font-size:.9rem;font-weight:800;color:#806B38;margin-bottom:7px}
+  .teacher-direct-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+  .teacher-direct-row input{min-width:0;min-height:48px;border:2px solid #E8DDBE;border-radius:13px;padding:8px 12px;font-family:var(--font-yoon);font-size:1rem;font-weight:700;color:var(--ink);background:#fff;outline:none}
+  .teacher-direct-row input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,200,90,.16)}
+  .teacher-direct-row .btn{min-height:48px;padding:8px 15px;white-space:nowrap}
   .teacher-draw-history{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
   .teacher-draw-history span{background:#fff;border-radius:999px;padding:7px 11px;font-size:.88rem;color:var(--body);box-shadow:0 1px 3px rgba(74,69,96,.08)}
+  @media (min-width:901px) and (orientation:landscape){
+    body.teacher-mode{overflow:hidden}
+    body.teacher-mode .wrap{padding:8px 10px 8px;min-height:100dvh;height:100dvh;overflow:hidden}
+    body.teacher-mode .topbar{padding:6px 10px;margin-bottom:8px;border-radius:16px;min-height:54px}
+    body.teacher-mode .top-teacher-btn{padding:9px 15px;font-size:.94rem;box-shadow:0 4px 0 #5F53B7,0 6px 14px rgba(91,79,183,.15)}
+    body.teacher-mode .icon-btn{width:42px;height:42px}
+    body.teacher-mode .teacher-hub{height:calc(100dvh - 72px);margin:0;padding:10px 12px;border-radius:20px;overflow:hidden}
+    body.teacher-mode .teacher-top{margin-bottom:7px;min-height:40px}
+    body.teacher-mode .teacher-top .live-title{font-size:1.08rem}
+    body.teacher-mode .teacher-top .btn{min-height:40px!important;padding:7px 13px!important;font-size:.9rem}
+    body.teacher-mode .teacher-grid{height:calc(100% - 47px);min-height:0}
+    body.teacher-mode .teacher-grid>div{min-height:0}
+    body.teacher-mode .teacher-grid>div:first-child{display:flex;flex-direction:column;min-height:0}
+    body.teacher-mode .teacher-stats{gap:7px;margin-bottom:8px}
+    body.teacher-mode .teacher-stats .box{padding:8px 6px;min-height:92px}
+    body.teacher-mode .teacher-stats .box .ico{font-size:1.15rem}
+    body.teacher-mode .teacher-stats .box .cap{font-size:.78rem}
+    body.teacher-mode .teacher-stats .box .num{font-size:1.42rem}
+    body.teacher-mode .teacher-grid>div:first-child .teacher-card{display:flex;flex-direction:column;flex:1;min-height:0;padding:10px}
+    body.teacher-mode .teacher-grid>div:first-child .teacher-table-wrap{flex:1;min-height:0;overflow:auto}
+    body.teacher-mode .teacher-table th,body.teacher-mode .teacher-table td{padding:6px 8px;font-size:.82rem}
+    body.teacher-mode .teacher-grid>div:last-child{min-height:0}
+    body.teacher-mode .teacher-grid>div:last-child .teacher-card{height:100%;display:flex;flex-direction:column;min-height:0;padding:10px}
+    body.teacher-mode .teacher-grid>div:last-child .teacher-draw-box{flex:1;min-height:220px;margin-bottom:7px}
+    body.teacher-mode .teacher-draw-history{max-height:74px;overflow:auto;margin-top:7px}
+    body.teacher-mode .teacher-draw-history span{padding:5px 9px;font-size:.78rem}
+    body.teacher-mode .teacher-draw-actions{margin-top:7px}
+    body.teacher-mode .teacher-draw-actions .btn{min-height:44px;font-size:.9rem}
+    body.teacher-mode .teacher-direct{margin-top:7px;padding:8px}
+    body.teacher-mode .teacher-direct-row input,body.teacher-mode .teacher-direct-row .btn{min-height:42px}
+  }
   @media (max-width:900px){.teacher-grid{grid-template-columns:1fr}.teacher-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media (max-width:620px){.teacher-access{grid-template-columns:1fr}.teacher-access .teacher-state{white-space:normal}.teacher-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:620px){.teacher-access{grid-template-columns:1fr}.teacher-access .teacher-state{white-space:normal}.teacher-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.teacher-direct-row{grid-template-columns:1fr}.teacher-direct-row .btn{width:100%}}
   .teacher-call{margin:14px 0 16px;padding:12px 14px;border-radius:18px;background:#EEF7FF;border:3px solid #C9DFF4;text-align:center}
   .teacher-call .cap{font-size:.88rem;color:var(--body);margin-bottom:3px}
   .teacher-call .word{font-family:var(--font-yoon);font-weight:800;font-size:clamp(1.5rem,5vw,2.35rem);line-height:1.25;color:var(--blue-dark);word-break:keep-all}
@@ -435,7 +489,7 @@
   body.teacher-mode #teacherAccess{display:none!important}
   body.teacher-mode #teacherHub{display:block!important}
   body:not(.teacher-login):not(.teacher-mode) #teacherAccess{display:none!important}
-  @media(max-width:620px){.brand-logo{width:190px;max-height:58px}.tools{gap:6px}.top-teacher-btn{padding:10px 12px;font-size:.9rem}}
+  @media(max-width:620px){.brand-logo{width:145px;max-height:34px}.tools{gap:6px}.top-teacher-btn{padding:10px 12px;font-size:.9rem}}
 
 </style>
 
@@ -547,9 +601,16 @@
             <div class="teacher-mini" id="teacherDrawMeta" style="margin-top:8px;color:#fff">방에 입장한 뒤 말을 뽑아 주세요.</div>
           </div>
           <div class="teacher-draw-actions">
-            <button class="btn btn-main" id="btnTeacherDraw" type="button">말 뽑기</button>
+            <button class="btn btn-main" id="btnTeacherDraw" type="button">랜덤 말 뽑기</button>
             <button class="btn btn-ghost" id="btnTeacherClearDraw" type="button">뽑기 기록 초기화</button>
             <button class="btn btn-pink" id="btnTeacherReset" type="button">라운드 초기화</button>
+          </div>
+          <div class="teacher-direct">
+            <div class="teacher-direct-label">친구들이 말한 좋은 말을 직접 입력해도 돼요</div>
+            <div class="teacher-direct-row">
+              <input id="teacherDirectWord" maxlength="20" placeholder="예: 네 생각이 궁금해" aria-label="직접 보여줄 좋은 말">
+              <button class="btn btn-ghost" id="btnTeacherDirect" type="button">이 말 보여주기</button>
+            </div>
           </div>
           <div class="teacher-draw-history" id="teacherDrawHistory"></div>
         </div>
@@ -670,7 +731,7 @@
       <div class="actions">
         <button class="btn btn-ghost" id="btnBack">카드 고치기</button>
         <button class="btn btn-ghost teacher-only" id="btnDrawMode">말 뽑기 화면</button>
-        <button class="btn btn-ghost" id="btnPrint">인쇄하기</button>
+        <button class="btn btn-ghost" id="btnPrint">PDF 저장</button>
       </div>
     </div>
 
@@ -722,6 +783,23 @@
   </div>
 </div>
 
+<div class="overlay" id="rankOverlay">
+  <div class="modal rank-modal">
+    <div class="award-card" id="rankCard">
+      <div class="award-crown" id="awardCrown">👑</div>
+      <div class="award-eyebrow">REALTIME BINGO TOP 3</div>
+      <div class="award-place" id="awardPlace">1등</div>
+      <div class="award-name" id="awardName">참가자</div>
+      <div class="award-desc" id="awardDesc">목표 빙고를 멋지게 완성했어요!</div>
+      <div class="award-meta" id="awardMeta">완주 시각 00:00:00</div>
+    </div>
+    <div class="rank-modal-actions">
+      <button class="btn btn-main" id="btnSaveRankPdf">PDF 저장</button>
+      <button class="btn btn-ghost" id="btnCloseRank">닫기</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <div class="live-toast" id="liveToast" role="status" aria-live="polite"></div>
 
@@ -742,7 +820,7 @@
   var BLOCK = ["바보","멍청","죽어","꺼져","찌질","못생","병신","시발","씨발","ㅅㅂ","ㅂㅅ","ㅄ"];
 
   var S = { size:3, goal:3, cells:[], marks:[], lines:[], drawn:[], pool:[], players:[], finishers:[],
-            sound:true, zoom:0, room:"", playerId:"", reportedLines:0, finished:false, isTeacher:false };
+            sound:true, zoom:0, room:"", playerId:"", reportedLines:0, finished:false, isTeacher:false, awardShown:0 };
   var $ = function(id){ return document.getElementById(id); };
   var TEACHER_PASSWORD = '1004';
 
@@ -960,6 +1038,7 @@
       vals.sort(function(a,b){return (a.finishedAt||0)-(b.finishedAt||0);});
       S.finishers = vals.slice();
       renderTeacherStats(S.players||[]);
+      maybeShowRankAward();
       var el=$('rankList'); if(!el) return;
       if(!vals.length){ el.innerHTML='<div class="live-item"><span>완주자가 나오면 1·2·3등이 표시됩니다.</span></div>'; return; }
       el.innerHTML=vals.map(function(v,i){
@@ -995,7 +1074,8 @@
       var ts=snap.val();
       if(!ts || Date.now()-ts>8000) return;
       S.marks=new Array(S.cells.length).fill(false);
-      S.lines=[]; S.reportedLines=0; S.finished=false; S.drawn=[];
+      S.lines=[]; S.reportedLines=0; S.finished=false; S.drawn=[]; S.awardShown=0;
+      hideRankAward();
       if(playerRef) playerRef.update({lines:0,marks:0,finishedAt:null});
       var dl=$('drawnList'); if(dl) dl.innerHTML='';
       renderTeacherDrawHistory(); renderTeacherDrawState();
@@ -1045,7 +1125,7 @@
     S.cells=new Array(S.size*S.size).fill('');
     for(var i=0;i<S.cells.length;i++){ S.cells[i]=pool[i%pool.length]; }
     S.marks=new Array(S.cells.length).fill(false);
-    S.lines=[]; S.reportedLines=0; S.finished=false;
+    S.lines=[]; S.reportedLines=0; S.finished=false; S.awardShown=0;
     buildPool();
 
     ensurePlayerJoined().then(function(){
@@ -1150,16 +1230,33 @@
       m.textContent = roomRef ? '이제 말을 뽑아 학생들에게 보여줄 수 있어요.' : '실시간 교실 연결을 기다리는 중이에요.';
     }
   }
+  function teacherBroadcastWord(word){
+    if(!S.isTeacher){ toast('교사 모드를 먼저 열어 주세요.'); return; }
+    word=String(word||'').trim();
+    if(!word){ toast('좋은 말을 입력해 주세요.'); return; }
+    if(word.length>20){ toast('20자 이내로 입력해 주세요.'); return; }
+    if(badWord(word)){ toast('따뜻한 말로 다시 입력해 주세요.'); return; }
+    if(!roomRef){ connectSharedRoom().then(function(){ teacherBroadcastWord(word); }).catch(function(){}); toast('실시간 교실에 연결하는 중이에요.'); return; }
+    var payload={word:word, ts:firebase.database.ServerValue.TIMESTAMP};
+    roomRef.child('draws').push(payload);
+    roomRef.child('currentDraw').set(payload);
+    sndLine();
+  }
   function teacherDrawShared(){
     if(!S.isTeacher){ toast('교사 모드를 먼저 열어 주세요.'); return; }
     if(!roomRef){ connectSharedRoom().catch(function(){}); toast('실시간 교실 연결을 먼저 확인해 주세요.'); return; }
     var pool = BANK.filter(function(w){ return S.drawn.indexOf(w) === -1; });
     if(!pool.length){ $('teacherDrawWord').textContent='모든 말 완료'; $('teacherDrawMeta').textContent='뽑기 기록을 초기화하면 다시 시작할 수 있어요.'; if($('drawWord')) $('drawWord').textContent='모든 말 완료'; if($('drawHint')) $('drawHint').textContent='뽑기 기록을 초기화해 주세요.'; return; }
     shuffle(pool);
-    var word = pool[0], payload = {word:word, ts:firebase.database.ServerValue.TIMESTAMP};
-    roomRef.child('draws').push(payload);
-    roomRef.child('currentDraw').set(payload);
-    sndLine();
+    teacherBroadcastWord(pool[0]);
+  }
+  function teacherDirectShared(){
+    var input=$('teacherDirectWord');
+    var word=(input.value||'').trim();
+    if(!word){ toast('친구들이 말한 좋은 말을 입력해 주세요.'); input.focus(); return; }
+    teacherBroadcastWord(word);
+    input.value='';
+    input.focus();
   }
   function teacherClearDrawShared(){
     if(!S.isTeacher){ toast('교사 모드를 먼저 열어 주세요.'); return; }
@@ -1182,6 +1279,8 @@
     $('roomState').textContent='라운드를 초기화했어요. 학생들은 새 게임을 시작하면 됩니다.';
   }
   $('btnTeacherDraw').addEventListener('click', teacherDrawShared);
+  $('btnTeacherDirect').addEventListener('click', teacherDirectShared);
+  $('teacherDirectWord').addEventListener('keyup', function(e){ if(e.key==='Enter') teacherDirectShared(); });
   $('btnTeacherClearDraw').addEventListener('click', teacherClearDrawShared);
   $('btnTeacherReset').addEventListener('click', teacherResetRound);
 
@@ -1213,6 +1312,13 @@
       tone(f,t,dur[i]+.1,.23,"square");
       tone(f/2,t,dur[i]+.1,.09,"triangle");
       t += dur[i];
+    });
+  }
+  function sndFireworks(){
+    [0,.18,.36].forEach(function(t0,i){
+      tone(180 + i*40, t0, .08, .06, 'sawtooth');
+      tone(620 + i*140, t0 + .05, .22, .16, 'square');
+      tone(980 + i*170, t0 + .08, .18, .11, 'triangle');
     });
   }
 
@@ -1386,6 +1492,83 @@
     $("overlay").classList.remove("show");
   });
 
+  /* ── PDF 저장 / 시상 카드 ── */
+  var pdfLibPromise = null;
+  function ensurePdfLibs(){
+    if(window.html2canvas && window.jspdf && window.jspdf.jsPDF) return Promise.resolve();
+    if(pdfLibPromise) return pdfLibPromise;
+    pdfLibPromise = loadScriptOnce('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js')
+      .then(function(){ return loadScriptOnce('https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'); })
+      .catch(function(err){ pdfLibPromise = null; throw err; });
+    return pdfLibPromise;
+  }
+  function saveNodeAsPdf(node, filename){
+    if(!node) return Promise.reject(new Error('PDF target missing'));
+    return ensurePdfLibs()
+      .then(function(){
+        return window.html2canvas(node, {scale:2, backgroundColor:'#ffffff', useCORS:true, logging:false});
+      })
+      .then(function(canvas){
+        var jsPDF = window.jspdf && window.jspdf.jsPDF;
+        if(!jsPDF) throw new Error('jsPDF unavailable');
+        var orientation = canvas.width > canvas.height ? 'l' : 'p';
+        var pdf = new jsPDF(orientation, 'mm', 'a4');
+        var pageW = pdf.internal.pageSize.getWidth();
+        var pageH = pdf.internal.pageSize.getHeight();
+        var margin = 10;
+        var maxW = pageW - margin*2;
+        var maxH = pageH - margin*2;
+        var ratio = Math.min(maxW/canvas.width, maxH/canvas.height);
+        var w = canvas.width * ratio;
+        var h = canvas.height * ratio;
+        var x = (pageW - w) / 2;
+        var y = (pageH - h) / 2;
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', x, y, w, h);
+        pdf.save(filename || 'word-bingo.pdf');
+      });
+  }
+  function rankLabel(rank){ return rank===1 ? '1등' : rank===2 ? '2등' : '3등'; }
+  function rankDesc(rank){
+    if(rank===1) return '가장 먼저 목표 빙고를 완성했어요!';
+    if(rank===2) return '두 번째 완주자예요. 끝까지 집중했어요!';
+    return '세 번째 완주자예요. 멋지게 완성했어요!';
+  }
+  function hideRankAward(){
+    var ov = $('rankOverlay'); if(ov) ov.classList.remove('show');
+  }
+  function showRankAward(rank, fin){
+    if(!rank || rank > 3 || !fin) return;
+    $('awardCrown').textContent = rank===1 ? '👑✨' : rank===2 ? '👑🥈' : '👑🥉';
+    $('awardPlace').textContent = rankLabel(rank);
+    $('awardName').textContent = (fin.name || (($('nameInput').value||'').trim()) || '참가자') + ' 님';
+    $('awardDesc').textContent = rankDesc(rank);
+    $('awardMeta').textContent = '완주 시각 ' + fmtTime(fin.finishedAt) + ' · 목표 ' + (fin.goal || S.goal) + '빙고';
+    $('rankOverlay').classList.add('show');
+    confettiBurst();
+    sndFanfare();
+    sndFireworks();
+  }
+  function maybeShowRankAward(){
+    if(S.isTeacher || !S.playerId || !S.finishers || !S.finishers.length) return;
+    var rank = 0, fin = null;
+    for(var i=0;i<S.finishers.length;i++){
+      if(S.finishers[i] && S.finishers[i].playerId === S.playerId){ rank = i+1; fin = S.finishers[i]; break; }
+    }
+    if(rank && rank <= 3 && S.awardShown !== rank){
+      S.awardShown = rank;
+      showRankAward(rank, fin);
+    }
+  }
+  $('btnCloseRank').addEventListener('click', hideRankAward);
+  $('btnSaveRankPdf').addEventListener('click', function(){
+    var name = (($('awardName').textContent||'참가자').replace(/\s+/g,'').replace(/님$/,''));
+    var rank = $('awardPlace').textContent || '시상';
+    saveNodeAsPdf($('rankCard'), name + '_' + rank + '_빙고상장.pdf').catch(function(e){
+      console.error(e);
+      toast('PDF 저장에 실패했어요. 인터넷 연결을 확인해 주세요.');
+    });
+  });
+
   /* ── 색종이 ── */
   var cv = $("confetti"), ctx = cv.getContext("2d"), raf = null;
   function confettiBurst(){
@@ -1458,16 +1641,24 @@
     var startGame = function(){
       S.marks = new Array(S.cells.length).fill(false);
       S.lines = [];
-      S.reportedLines = 0; S.finished = false;
+      S.reportedLines = 0; S.finished = false; S.awardShown = 0;
+      hideRankAward();
       buildPool(); renderPlay(); show("screenPlay","st2");
       if(playerRef){ playerRef.update({lines:0, marks:0, finishedAt:null, online:true, updatedAt:firebase.database.ServerValue.TIMESTAMP, name:($('nameInput').value||'').trim()||'익명'}); }
     };
     ensurePlayerJoined().then(startGame).catch(function(){ toast('실시간 연결에 실패했습니다. 다시 시도해 주세요.'); });
   });
-  $("btnBack").addEventListener("click", function(){ renderSetup(); show("screenSetup","st1"); });
+  $("btnBack").addEventListener("click", function(){ S.awardShown = 0; hideRankAward(); renderSetup(); show("screenSetup","st1"); });
   $("btnDrawMode").addEventListener("click", function(){ show("screenDraw","st3"); });
   $("btnPlayMode").addEventListener("click", function(){ renderPlay(); show("screenPlay","st2"); });
-  $("btnPrint").addEventListener("click", function(){ window.print(); });
+  $("btnPrint").addEventListener("click", function(){
+    var who = (($('nameInput').value||'').trim() || '참가자').replace(/\s+/g,'');
+    var target = document.querySelector('#screenPlay .sheet');
+    saveNodeAsPdf(target, who + '_빙고판.pdf').catch(function(e){
+      console.error(e);
+      toast('PDF 저장에 실패했어요. 인터넷 연결을 확인해 주세요.');
+    });
+  });
   $("st1").addEventListener("click", function(){ renderSetup(); show("screenSetup","st1"); });
   $("st2").addEventListener("click", function(){
     if(S.cells.some(function(c){ return !c; })){ toast("먼저 빙고 칸을 다 채워 주세요."); return; }
